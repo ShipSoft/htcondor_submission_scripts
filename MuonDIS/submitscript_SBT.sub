@@ -1,0 +1,23 @@
+executable          	= submitscript.sh
+transfer_output_files 	= ""
+notify_user				= anupama.reghunath@hu-berlin.de
+notification 			= Always
+
+arguments 		= /eos/experiment/ship/user/anupamar/muonDIS_test/SBT /eos/experiment/ship/simulation/bkg/MuonDIS/muonsProduction_wsoft_SBT.root  $(Process) 4 100
+
+##############################################################################################################
+error 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/error/muondisSBT_$(Process).err
+log 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/log/muondisSBT_$(Process).log
+output					= /afs/cern.ch/work/a/anupamar/HTCondor_files/output/muondisSBT_$(Process).out
+##############################################################################################################
+
+on_exit_remove   		= (ExitBySignal == False) && (ExitCode == 0)
+max_retries      		= 3
+requirements     		= Machine =!= LastRemoteHost 
+
+##############################################################################################################
++JobFlavour="tomorrow"
+##############################################################################################################
+queue 10
+#810
+#queue*number of muons per job >= number of muons in tne sim file(32369)

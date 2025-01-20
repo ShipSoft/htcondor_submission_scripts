@@ -1,9 +1,9 @@
 executable          	= submitscript.sh
 transfer_output_files 	= ""
-notify_user				= anupama.reghunath@physik.hu-berlin.de
+notify_user				= anupama.reghunath@hu-berlin.de
 notification 			= Always
 
-arguments 		= /eos/experiment/ship/simulation/bkg/MuonDIS/SBT /eos/experiment/ship/simulation/bkg/MuonDIS/muonsProduction_wsoft_SBT_1spill_8070735.root  $(Process) 10 100
+arguments 		= /eos/experiment/ship/simulation/bkg/MuonDIS_2024helium/8070735/SBT /eos/experiment/ship/simulation/bkg/MuonDIS_2024helium/8070735/muonsProduction_wsoft_SBT_1spill_8070735.root $(Process) 10 100
 
 ##############################################################################################################
 error 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/error/muondisSBT_$(Process).err

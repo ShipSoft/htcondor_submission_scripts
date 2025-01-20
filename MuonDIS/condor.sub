@@ -1,0 +1,21 @@
+executable          	= condor.sh
+transfer_output_files   = ""
+notify_user				= anupama.reghunath@physik.hu-berlin.de
+notification 			= Always
+
+##############################################################################################################
+error 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/error/makentuple.err
+log 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/log/makentuple.log
+output					= /afs/cern.ch/work/a/anupamar/HTCondor_files/output/makentuple.out
+##############################################################################################################
+#request_memory 		= 50 GB	
+#request_disk			= 4 GB
+on_exit_remove   		= (ExitBySignal == False) && (ExitCode == 0)
+max_retries      		= 3
+requirements     		= Machine =!= LastRemoteHost 
+
+
+##############################################################################################################
++JobFlavour="testmatch"
+##############################################################################################################
+queue

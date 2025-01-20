@@ -40,7 +40,7 @@ step2() {
     echo 
     echo "Running Step 2: running the muonDIS simulation"
     echo "=============================================================="
-    python "$FAIRSHIP/macro/run_simScript.py" --MuDIS -f root://eospublic.cern.ch/"$OUTPUTDIR/muonDis.root" --firstEvent 0 --nEvents $((MuonsPerJob*DISPerMuon)) | tee simulation_output.txt
+    python "$FAIRSHIP/macro/run_simScript.py" --MuDIS -f root://eospublic.cern.ch/"$OUTPUTDIR/muonDis.root" --firstEvent 0 --nEvents $((MuonsPerJob*DISPerMuon)) --helium | tee simulation_output.txt
     echo "MuDIS simulation done. Adding the original muon's SBT response to the simulation."
     python "$FAIRSHIP/muonDIS/add_muonresponse.py" -m root://eospublic.cern.ch/"$OUTPUTDIR/muonDis.root" -f "ship.conical.muonDIS-TGeant4.root"
     

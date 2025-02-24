@@ -68,5 +68,15 @@ Replace all mentions of  `root://eospublic.cern.ch` with `root://eosuser.cern.ch
 
 ---
 
+## 3. Submitting to HTCondor
+To submit the jobs to HTCondor, run
+```bash
+condor_submit submitscript.sub
+```
+To monitor the job queue, use `condor_q`. 
+
+For more useful commands and adavnced usage, please refer to the [official HTCondor documentation](https://htcondor.readthedocs.io/en/latest/)
+
+
 
 

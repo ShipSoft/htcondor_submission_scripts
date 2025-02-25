@@ -16,7 +16,7 @@ max_retries      		= 3
 requirements     		= Machine =!= LastRemoteHost 
 
 ##############################################################################################################
-+JobFlavour="tomorrow"
++MaxRuntime = 8000000
 ##############################################################################################################
 queue 442
 #queue*number of muons per job >= number of muons in tne sim file(4411)

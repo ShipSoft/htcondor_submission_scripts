@@ -1,7 +1,7 @@
 
 # Condor Scripts to generate MuonBackground using Fairship
 
-Thesse scripts have been used to produce the MuonBackground Files(weighted to a spill) available in `/eos/experiment/ship/simulation/bkg/MuonBack_2024helium`. 
+These scripts have been used to produce the MuonBackground Files(weighted to a spill) available in `/eos/experiment/ship/simulation/bkg/MuonBack_2024helium`. 
 
 If you do not already have FairShip, please follow the [Fairship README](https://github.com/ShipSoft/FairShip?tab=readme-ov-file#build-instructions-using-cvmfs) to build the software (Steps 1-4) to use within lxplus.
 

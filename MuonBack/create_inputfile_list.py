@@ -32,8 +32,8 @@ def process_files():
                 nevents_to_read -= eventsPerJob
                 startEvent += eventsPerJob
             
-            file_rows.append([file, startEvent, nevents_to_read])
-            print(file,startEvent,nevents_to_read)
+            file_rows.append([file, startEvent, nevents_to_read-1])
+            print(file,startEvent,nevents_to_read-1)
             
             file_in.Close()
         for i in range(1):#10spill

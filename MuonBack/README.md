@@ -7,13 +7,6 @@ If you do not already have FairShip, please follow the [Fairship README](https:/
 
 To reuse the scripts, follow the step by step guide:
 
-## 0. Clone the Repository
-
-```bash
-cd /afs/cern.ch/user/<path>/<to_your_folder>
-git clone https://github.com/anupama-reghunath/HTCondor_scripts.git
-```
-
 ## 1. Load the Environment for use within HTCondor
 
 Source the setup script (replace \$SHIP_RELEASE with the release you want to use):

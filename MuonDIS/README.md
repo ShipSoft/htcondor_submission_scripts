@@ -7,9 +7,6 @@ These scripts have been used to produce the MuonDIS simulation available within 
 > To generate MuonDIS, MuonBackground files must already be generated.  
 > You can either use one of the clusters in `/eos/experiment/ship/simulation/bkg/MuonBack_2024helium/` (produced with default master release) or generate your own MuonBack using the [MuonBack scripts](https://github.com/anupama-reghunath/HTCondor_scripts/tree/main/MuonBack).
 
-> **Important:**  
-> The submisson scripts use FairShip [Pull Request 510](https://github.com/ShipSoft/FairShip/pull/510) (pending review) (and not the master release).
-
 To reuse the MuonDIS scripts, follow the step by step guide:
 
 ## 1. Load the Environment for use within HTCondor

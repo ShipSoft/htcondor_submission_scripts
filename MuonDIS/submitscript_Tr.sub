@@ -1,7 +1,7 @@
 executable          	= submitscript.sh
 transfer_output_files 	= ""
 notify_user				= anupama.reghunath@hu-berlin.de
-notification 			= Always
+notification 			= Error
 
 arguments 		= /eos/experiment/ship/simulation/bkg/MuonDIS_2024helium/8070735/Tr /eos/experiment/ship/simulation/bkg/MuonDIS_2024helium/8070735/muonsProduction_wsoft_Tr_1spill_8070735.root $(Process) 1 1000
 

@@ -1,0 +1,22 @@
+executable          	= submitscript.sh
+transfer_output_files 	= ""
+notify_user				= anupama.reghunath@hu-berlin.de
+notification 			= Always
+
+arguments 		= /eos/experiment/ship/user/anupamar/Signal_EventCalc/epi $(inputFile) $(startEvent) $(nEvents) $(Process) $(ClusterId) 
+
+##############################################################################################################
+error 					= /afs/cern.ch/work/a/areghuna/HTCondorfiles/error/eventcalc_$(Process).err
+log 					= /afs/cern.ch/work/a/areghuna/HTCondorfiles/log/eventcalc_$(Process).log
+output					= /afs/cern.ch/work/a/areghuna/HTCondorfiles/output/eventcalc_$(Process).out
+##############################################################################################################
+
+on_exit_remove   		= (ExitBySignal == False) && (ExitCode == 0)
+max_retries      		= 3
+requirements     		= Machine =!= LastRemoteHost
+RequestMemory 			= 3000 
+
+##############################################################################################################
++JobFlavour = "tomorrow"
+##############################################################################################################
+queue inputFile,startEvent,nEvents from /afs/cern.ch/user/a/areghuna/HTCondor_scripts/Signal_EventCalc/inputfile_list.txt

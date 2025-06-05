@@ -19,4 +19,4 @@ RequestMemory 			= 3000
 ##############################################################################################################
 +JobFlavour = "tomorrow"
 ##############################################################################################################
-queue inputFile,startEvent,nEvents from /afs/cern.ch/user/a/areghuna/HTCondor_scripts/Signal_EventCalc/inputfile_list.txt
+queue inputFile,startEvent,nEvents from /afs/cern.ch/user/a/areghuna/HTCondor_scripts/SignalEventCalc/inputfile_list.txt

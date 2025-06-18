@@ -1,0 +1,25 @@
+executable          	= submitscript.sh
+transfer_output_files 	= ""
+notify_user				= anupama.reghunath@hu-berlin.de
+notification 			= Always
+
+arguments 				= /eos/experiment/ship/simulation/bkg/NeutrinoDIS_2024helium 10000 $(Process) $(ClusterId)
+
+##############################################################################################################
+error 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/error/neuDIS_$(Process).err
+log 					= /afs/cern.ch/work/a/anupamar/HTCondor_files/log/neuDIS_$(Process).log
+output					= /afs/cern.ch/work/a/anupamar/HTCondor_files/output/neuDIS_$(Process).out
+##############################################################################################################
+
+on_exit_remove   		= (ExitBySignal == False) && (ExitCode == 0)
+max_retries      		= 3
+requirements     		= Machine =!= LastRemoteHost 
+
+##############################################################################################################
++JobFlavour = "nextweek"
+##############################################################################################################
+queue 10000
+
+
+
+

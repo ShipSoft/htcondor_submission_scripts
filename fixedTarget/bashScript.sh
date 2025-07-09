@@ -8,6 +8,8 @@ source test_config.sh
 echo 'getting there'
 echo $FAIRSHIP
 
-echo 'INFO: Executing: python ' $@
+echo 'INFO: Executing: python /vols/lhcb/masmith/SHiP/FairShip/muonShieldOptimization/run_fixedTarget.py' $@
 
-python /vols/lhcb/masmith/SHiP/FairShip/muonShieldOptimization/run_fixedTarget.py -n 10
+python /vols/lhcb/masmith/SHiP/FairShip/muonShieldOptimization/run_fixedTarget.py $@
+
+ls -lh

@@ -1,5 +1,8 @@
 import time
-startRun = int(time.time())
+import os
+import random
+random.seed(os.environ.get("USER"))
+startRun = int(time.time()) + random.randint(0,10000)
 evtsPerJob = 10 #100000
 evtsToGen = 100
 nSJ = int(evtsToGen/evtsPerJob)

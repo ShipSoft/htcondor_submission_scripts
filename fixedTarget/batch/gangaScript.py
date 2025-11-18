@@ -14,5 +14,7 @@ j.splitter = ArgSplitter(args = [['-r', startRun + _i] for _i in range(nSJ)], ap
 j.outputfiles = [LocalFile('*.root')]
 j.backend = Condor()
 j.backend.cdf_options['+MaxRuntime'] = '1000'
+cc = CustomChecker(moduel = 'postprocessor.py')
+j.postprocessors.append(cc)
 j.comment = f'{evtsPerJob} events in each of {nSJ} subjobs'
 j.submit()

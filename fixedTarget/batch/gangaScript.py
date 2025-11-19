@@ -8,7 +8,7 @@ config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/lhcb/user/m
 random.seed(os.environ.get("USER"))
 startRun = int(time.time()) + random.randint(0,10000)
 evtsPerJob = 10 #100000
-evtsToGen = 100
+evtsToGen = 30
 nSJ = int(evtsToGen/evtsPerJob)
 
 j = Job(name = f'run fixed target production - {evtsToGen} events')
@@ -18,7 +18,9 @@ j.splitter = ArgSplitter(args = [['-r', startRun + _i] for _i in range(nSJ)], ap
 j.outputfiles = [MassStorageFile('*.root')]
 j.backend = Condor()
 j.backend.cdf_options['+MaxRuntime'] = '1000'
-cc = CustomChecker(moduel = 'postprocessor.py')
+# For running at CERN only
+j.backend.cdf_options['accounting_group'] = 'group_u_SHIP.u_ship_cg'
+cc = CustomChecker(module = 'postprocessor.py')
 j.postprocessors.append(cc)
 j.comment = f'{evtsPerJob} events in each of {nSJ} subjobs'
 j.submit()

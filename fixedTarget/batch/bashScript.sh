@@ -1,18 +1,15 @@
 #!/bin/bash
 
-FS_INSTALL=/user/kskovpen/analysis/SHiP/FairShip
+FS_INSTALL=/cvmfs/ship.cern.ch/25.11/
 
-source /cvmfs/ship.cern.ch/24.10/setUp.sh
+export WORK_DIR=${FS_INSTALL}/sw/
+source ${FS_INSTALL}/slc9_x86-64/FairShip/latest/etc/profile.d/init.sh
 
-export ALIBUILD_WORK_DIR=${FS_INSTALL}/sw
+echo "INFO: Environment set up for FairShip located at " $FS_INSTALL
 
-source ${FS_INSTALL}/../htcondor_submission_scripts/fixedTarget/batch/test_config.sh
+echo "INFO: Executing: python ${FS_INSTALL}/slc9_x86-64/FairShip/latest/muonShieldOptimization/run_fixedTarget.py" $@
 
-echo "INFO: Environment set up for FairShip located at " $FAIRSHIP
-
-echo "INFO: Executing: python ${FAIRSHIP_INSTALL}/muonShieldOptimization/run_fixedTarget.py" $@
-
-python ${FS_INSTALL}/muonShieldOptimization/run_fixedTarget.py $@
+python ${FS_INSTALL}/slc9_x86-64/FairShip/latest/muonShieldOptimization/run_fixedTarget.py $@
 
 echo "INFO: Finished running. These files are on the WN:"
 ls -lh

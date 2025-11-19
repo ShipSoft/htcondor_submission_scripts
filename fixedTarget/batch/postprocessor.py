@@ -6,7 +6,7 @@ def check(j):
         if isinstance(_f, MassStorageFile):
             _loc = _f.location()
             _size = rucio_it_tools.rucio_it_register.get_file_on_disk_size_in_bytes(_f)
-            _checksum = rucio_it_tools.rucio_it_register.get_file_on_disk_size_in_bytes(_f)
+            _checksum = rucio_it_tools.rucio_it_register.get_file_on_disk_adler32_checksum(_f)
             file_list.append({
                 "path": _loc,
                 "size": _size,

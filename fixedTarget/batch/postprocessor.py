@@ -17,6 +17,7 @@ def check(j):
                 "ganga_id": str(j.id),
                 "completion_time" : str(j.time.final()),
                 "job_args" : str([_a for _a in j.application.args]),
+                "run_nos" : str([_sj.application.args[1] for _sj in j.subjobs]),
                 "n_jobs" : str(len(j.subjobs)),
                 "creator": os.environ.get("USER"),
                 "comment": j.comment

@@ -14,8 +14,8 @@ def check(j):
             })
     metadata = {
                 "name" : j.name,
-                "ganga_id": j.id,
-                "completion_time" : j.time.final(),
+                "ganga_id": str(j.id),
+                "completion_time" : str(j.time.final()),
                 "job_args" : j.application.args,
                 "nJobs" : str(len(j.subjobs)),
                 "creator": os.environ.get("USER"),

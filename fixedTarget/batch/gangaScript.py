@@ -7,15 +7,15 @@ config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/lhcb/user/m
 
 random.seed(os.environ.get("USER"))
 startRun = int(time.time()) + random.randint(0,10000)
-evtsPerJob = 10 #100000
-evtsToGen = 30
+evtsPerJob = 100 #100000
+evtsToGen = 200
 nSJ = int(evtsToGen/evtsPerJob)
 
 j = Job(name = f'run fixed target production - {evtsToGen} events')
 j.application = Executable(exe = File('bashScript.sh'), args = ['-o', '"./"', '-n', evtsPerJob])
 # IMPORTANT: Only put the run seed in the splitter arguments
 j.splitter = ArgSplitter(args = [['-r', startRun + _i] for _i in range(nSJ)], append = True)
-j.outputfiles = [MassStorageFile('*.root')]
+j.outputfiles = [MassStorageFile('pythia8_evtgen_Geant4_*.root')]
 j.backend = Condor()
 j.backend.cdf_options['+MaxRuntime'] = '1000'
 # For running at CERN only

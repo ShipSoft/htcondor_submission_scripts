@@ -1,5 +1,5 @@
 import rucio_it_tools.rucio_it_register
-
+import os
 def check(j):
     file_list = []
     for _f in j.outputfiles:
@@ -12,9 +12,20 @@ def check(j):
                 "size": _size,
                 "adler32": _checksum
             })
-
+    metadata = {
+                "name" : j.name,
+                "ganga_id": j.id,
+                "completion_time" : j.time.final(),
+                "job_args" : j.application.args,
+                "nJobs" : str(len(j.subjobs)),
+                "creator": os.environ.get("USER"),
+                "comment": j.comment
+               }
+    
+    
     rucio_it_tools.rucio_it_register.register_files_with_structure(
         rse_name = "SHIP_TIER_0_DISK",
         files = file_list
+        metadata = metadata
     )
     return True

@@ -3,7 +3,7 @@ import os
 import random
 
 # Set this path to wherever you want the output to go
-config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/lhcb/user/m/masmith/mySHiPTest'
+config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/test'
 
 # Now set up the random seed, how many events per subjobs and how many events total
 random.seed(os.environ.get("USER"))

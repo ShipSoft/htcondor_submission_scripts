@@ -8,6 +8,7 @@
 
 4. Use the gangaSubmit.sh script to submit the job. This is important - you need to use the ship version of ganga on CVMFS (not latest)
 
+5. To monitor your jobs use this ganga: /cvmfs/ganga.cern.ch/Ganga/install/ship/bin/ganga . Don't forget to have a valid voms proxy!
 
 
 # Batch submission

@@ -9,7 +9,6 @@ if 'RUCIO_CONFIG' not in os.environ:
 def check(j):
     # Only do this on the master job
     if j.master:
-        print("ALL gone wrong")
         return True
     file_list = []
     for _sj in j.subjobs:
@@ -17,9 +16,7 @@ def check(j):
             print(f"WARNING: Subjobs {_sj.id} did not complete")
             continue
         for _f in _sj.outputfiles:
-#            print('a: ', _f.locations)
             if isinstance(_f, MassStorageFile):
-                print('b')
                 _loc = _f.locations[0]
                 _size = rucio_it_tools.rucio_it_register.get_file_on_disk_size_in_bytes(_loc)
                 _checksum = rucio_it_tools.rucio_it_register.get_file_on_disk_adler32_checksum(_loc)
@@ -39,14 +36,14 @@ def check(j):
                 "creator": os.environ.get("USER"),
                 "comment": j.comment
                }
-    print(f"INFO: File list - {file_list}")
-    print(f"INFO: metadata - {metadata}")
+#    print(f"INFO: File list - {file_list}")
+#    print(f"INFO: metadata - {metadata}")
 
     if len(file_list)>0:
         rucio_it_tools.rucio_it_register.register_files_with_structure(
             rse_name = "SHIP_TIER_0_DISK",
             files = file_list,
             metadata = metadata,
-            dry_run = True
+#            dry_run = True
         )
     return True

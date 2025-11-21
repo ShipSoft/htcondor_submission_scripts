@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/cvmfs/ganga.cern.ch/runGanga.sh gangaScript.py
+/cvmfs/ganga.cern.ch/Ganga/install/ship/bin/ganga gangaScript.py
 

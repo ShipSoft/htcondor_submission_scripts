@@ -1,3 +1,15 @@
+# Production submission
+
+1. Make sure the FairShip installation in `bashScript.sh` points to the version you want
+
+2. Make sure the MassStorageFile location in `gangaScript.py` points to wherever you want the data to go
+
+3. Make sure you have created a voms proxy for the file registration
+
+4. Use the gangaSubmit.sh script to submit the job. This is important - you need to use the ship version of ganga on CVMFS (not latest)
+
+
+
 # Batch submission
 
 1. Download the FairShip software:

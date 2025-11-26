@@ -27,7 +27,7 @@ def check(j):
                     "adler32": _checksum
                 })
     metadata = {
-                "name" : j.name,
+                "title" : j.name,
                 "ganga_id": str(j.id),
                 "completion_time" : str(j.time.backend_final()),
                 "job_args" : str([_a for _a in j.application.args]),

@@ -49,10 +49,16 @@ def check(j):
 #    print(f"INFO: metadata - {metadata}")
 
     if len(file_list)>0:
-        rucio_it_tools.rucio_it_register.register_files_with_structure(
-            rse_name = "SHIP_TIER_0_DISK",
-            files = file_list,
-            metadata = metadata,
-#            dry_run = True
-        )
+        try:
+            rucio_it_tools.rucio_it_register.register_files_with_structure(
+                rse_name = "SHIP_TIER_0_DISK",
+                files = file_list,
+                metadata = metadata,
+    #            dry_run = True
+            )
+        except Exception as e:
+            print(f"ERROR: Not able to register file {file_list} with rucio: {e}")
+            j.force_status("failed")
+            j.comment += " - Rucio registration failed"
+            return False        
     return True

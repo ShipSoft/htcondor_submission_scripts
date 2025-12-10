@@ -3,7 +3,7 @@ import os
 import random
 
 # Set this path to wherever you want the output to go
-config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/test/masmith_test/'
+#config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/test/masmith_test/'
 config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root://eospublic.cern.ch'
 
 # Now set up the random seed, how many events per subjobs and how many events total
@@ -30,6 +30,8 @@ j.backend.cdf_options['accounting_group'] = 'group_u_SHIP.u_ship_cg'
 # Add in the postprocessor to do the file registration
 cc = CustomChecker(module = 'postprocessor.py')
 #cc = CustomChecker(module = 'postprocessor_master.py')
+fc = FileChecker(files = ['stdout'], searchStrings = ['Macro finished successfully.'], failIfFound = False)
+j.postprocessors.append(fc)
 j.postprocessors.append(cc)
 j.comment = f'{evtsPerJob} events in each of {nSJ} subjobs'
 j.submit()

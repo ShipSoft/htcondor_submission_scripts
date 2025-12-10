@@ -43,8 +43,8 @@ def check(j):
             "creator": os.environ.get("USER"),
             "comment": j.comment
             }
-    print(f"INFO: File list - {file_list}")
-    print(f"INFO: metadata - {metadata}")
+#    print(f"INFO: File list - {file_list}")
+#    print(f"INFO: metadata - {metadata}")
 
     if len(file_list)>0:
         try:
@@ -54,8 +54,8 @@ def check(j):
                 metadata = metadata,
                 dry_run = True # Comment this when you run it for real
             )
-        except:
-            print("ERROR: Not able to register file {file_list} with rucio")
+        except Exception as e:
+            print(f"ERROR: Not able to register file {file_list} with rucio: {e}")
             j.force_status("failed")
             j.comment += " - Rucio registration failed"
             return False

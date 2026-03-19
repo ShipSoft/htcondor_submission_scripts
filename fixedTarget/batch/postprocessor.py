@@ -1,20 +1,62 @@
+from GangaCore.GPIDev.Lib.File.MassStorageFile import MassStorageFile
 import rucio_it_tools.rucio_it_register
+import os
+import uproot
+
+# This is a config file set up for SHiP
+if 'RUCIO_CONFIG' not in os.environ:
+    os.environ['RUCIO_CONFIG'] = '/cvmfs/ganga.cern.ch/Ganga/install/ship/rucio/etc/rucio.cfg'
 
 def check(j):
+    # We don't want to run on the master job 
+    if j.subjobs:
+        print("this is a master job")
+        return True
     file_list = []
     for _f in j.outputfiles:
         if isinstance(_f, MassStorageFile):
-            _loc = _f.location()
-            _size = rucio_it_tools.rucio_it_register.get_file_on_disk_size_in_bytes(_f)
-            _checksum = rucio_it_tools.rucio_it_register.get_file_on_disk_size_in_bytes(_f)
+            _loc = _f.locations[0]
+            # Check you can open it
+#            try:
+#                _tfile = uproot.open(_loc)
+#                _tfile["cbmsim"]
+#                _tfile.close()
+#            except uproot.deserialization.DeserializationError:
+#                print(f"ERROR: Unable to open {_loc}! Job likely failed!")
+#                _tfile.close()
+#                return False
+            _size = rucio_it_tools.rucio_it_register.get_file_on_disk_size_in_bytes(_loc)
+            _checksum = rucio_it_tools.rucio_it_register.get_file_on_disk_adler32_checksum(_loc)
+#                print(_loc,' - ', _size, ' - ', _checksum)
             file_list.append({
                 "path": _loc,
                 "size": _size,
                 "adler32": _checksum
             })
+    metadata = {
+            "title" : j.name,
+            "ganga_id": str(j.fqid),
+            "completion_time" : str(j.time.backend_final()),
+            "job_args" : str([_a for _a in j.application.args]),
+            "run_nos" : str((j.fqid, j.application.args[-1])),
+            "n_jobs" : str(len(j.master.subjobs)),
+            "creator": os.environ.get("USER"),
+            "comment": j.comment
+            }
+#    print(f"INFO: File list - {file_list}")
+#    print(f"INFO: metadata - {metadata}")
 
-    rucio_it_tools.rucio_it_register.register_files_with_structure(
-        rse_name = "SHIP_TIER_0_DISK",
-        files = file_list
-    )
+    if len(file_list)>0:
+        try:
+            rucio_it_tools.rucio_it_register.register_files_with_structure(
+                rse_name = "SHIP_TIER_0_DISK",
+                files = file_list,
+                metadata = metadata,
+                dry_run = True # Comment this when you run it for real
+            )
+        except Exception as e:
+            print(f"ERROR: Not able to register file {file_list} with rucio: {e}")
+            j.force_status("failed")
+            j.comment += " - Rucio registration failed"
+            return False
     return True

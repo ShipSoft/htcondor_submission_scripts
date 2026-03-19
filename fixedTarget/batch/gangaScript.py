@@ -8,15 +8,15 @@ config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root:
 
 # Now set up the random seed, how many events per subjobs and how many events total
 user = os.environ.get("USER")
-random.seed(user)
-if user.startswith("h") or user.startswith("s"):  # either h or service account
+random.seed(user + str(time.time()))
+if user.startswith("h") or "ship" in user:  # either h or service account
     run_min = 0
-    run_max = 900000000 / 3 - 1
+    run_max = 300000000 - 1
 elif user.startswith("m"):
-    run_min = 900000000 / 3
-    run_max = 900000000 / 3 * 2 - 1
+    run_min = 300000000
+    run_max = 600000000 - 1
 else:
-    run_min = 900000000 / 3 * 2
+    run_min = 600000000
     run_max = 900000000
 startRun = random.randint(run_min, run_max)
 

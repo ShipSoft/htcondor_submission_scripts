@@ -36,14 +36,18 @@ def check(j):
                     "adler32": _checksum
                 })
     metadata = {
-                "title" : j.name,
-                "ganga_id": str(j.id),
-                "completion_time" : str(j.time.backend_final()),
+                "runfile": "run_fixedTarget.py",
+                "production_type": "target production",
                 "job_args" : str([_a for _a in j.application.args]),
-                "run_nos" : str([(_sj.id, _sj.application.args[-1]) for _sj in j.subjobs if _sj.status=='completed']),
-                "n_jobs" : str(len(j.subjobs)),
                 "creator": os.environ.get("USER"),
-                "comment": j.comment
+                "ganga_id": str(j.id),
+                "FairShip_tag": "26.03",  # mainly useful if using local version of FairShip
+                "cvmfs_version": "26.03",
+                "comment": j.comment,
+                "data_type": "simulation",
+                "production_site": "CERN",
+                "run_nos" : str([(_sj.id, _sj.application.args[-1]) for _sj in j.subjobs if _sj.status=='completed']),
+                "title" : j.name,
                }
 #    print(f"INFO: File list - {file_list}")
 #    print(f"INFO: metadata - {metadata}")
@@ -60,5 +64,5 @@ def check(j):
             print(f"ERROR: Not able to register file {file_list} with rucio: {e}")
             j.force_status("failed")
             j.comment += " - Rucio registration failed"
-            return False        
+            return False
     return True

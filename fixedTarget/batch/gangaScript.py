@@ -2,6 +2,8 @@ import time
 import os
 import random
 
+SITE = 'CERN'  # or GENT or GRIDPP
+os.environ["SITE"] = SITE
 # Set this path to wherever you want the output to go
 config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
 config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root://eospublic.cern.ch//eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
@@ -9,10 +11,10 @@ config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root:
 # Now set up the random seed, how many events per subjobs and how many events total
 user = os.environ.get("USER")
 random.seed(user + str(time.time()))
-if user.startswith("h") or "ship" in user:  # either h or service account
+if SITE == 'CERN':  # either h or service account
     run_min = 0
     run_max = 300000000 - 1
-elif user.startswith("m"):
+elif SITE == 'GRIDPP':
     run_min = 300000000
     run_max = 600000000 - 1
 else:
@@ -36,11 +38,12 @@ for J in range(nJ):
     j.splitter = ArgSplitter(args = [['-r', startRun + J * nSJ + _i] for _i in range(nSJ)], append = True)
     j.outputfiles = [MassStorageFile('pythia8_evtgen_Geant4_*.root')]
     j.backend = Condor()
-    j.backend.env['EOS_MGM_URL'] = "root://eospublic.cern.ch"
     j.backend.cdf_options['+MaxRuntime'] = '86000'
 
     # For running at CERN only
-    j.backend.cdf_options['accounting_group'] = 'group_u_SHIP.u_ship_cg'
+    if SITE == 'CERN':
+        j.backend.env['EOS_MGM_URL'] = "root://eospublic.cern.ch"
+        j.backend.cdf_options['accounting_group'] = 'group_u_SHIP.u_ship_cg'
 
     # Add in the postprocessor to do the file registration
     # cc = CustomChecker(module = 'postprocessor.py')

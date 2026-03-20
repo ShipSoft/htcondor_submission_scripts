@@ -2,6 +2,8 @@ from GangaCore.GPIDev.Lib.File.MassStorageFile import MassStorageFile
 import rucio_it_tools.rucio_it_register
 import os
 
+site = os.environ.get("SITE")
+
 # This is a config file set up for SHiP
 if 'RUCIO_CONFIG' not in os.environ:
     os.environ['RUCIO_CONFIG'] = '/cvmfs/ganga.cern.ch/Ganga/install/ship/rucio/etc/rucio.cfg'
@@ -45,7 +47,7 @@ def check(j):
                 "cvmfs_version": "26.03",
                 "comment": j.comment,
                 "data_type": "simulation",
-                "production_site": "CERN",
+                "production_site": SITE,
                 "run_nos" : str([(_sj.id, _sj.application.args[-1]) for _sj in j.subjobs if _sj.status=='completed']),
                 "title" : j.name,
                }

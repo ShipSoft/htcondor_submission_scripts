@@ -20,7 +20,6 @@ elif SITE == 'GRIDPP':
 else:
     run_min = 600000000
     run_max = 900000000
-startRun = random.randint(run_min, run_max)
 
 evtsPerJob = 800000  # 200000
 nJ = 70  # in total want 14000 subjobs per week as a first try

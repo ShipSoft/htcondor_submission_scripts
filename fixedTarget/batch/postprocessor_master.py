@@ -2,7 +2,7 @@ from GangaCore.GPIDev.Lib.File.MassStorageFile import MassStorageFile
 import rucio_it_tools.rucio_it_register
 import os
 
-site = os.environ.get("SITE")
+SITE = os.environ.get("SITE")
 
 # This is a config file set up for SHiP
 if 'RUCIO_CONFIG' not in os.environ:

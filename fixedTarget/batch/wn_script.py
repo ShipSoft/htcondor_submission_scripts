@@ -21,6 +21,11 @@ def main():
     )
 
     parser.add_argument(
+        "--FairShip_tag",
+        help="What tag is used. Defaults to the cvmfs version if not set"
+    )
+
+    parser.add_argument(
         "--site",
         default="CERN",
         help="Which site are we running - for setting site-specific options"
@@ -57,7 +62,10 @@ def main():
     INIT_SCRIPT = args.init_script or f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/etc/profile.d/init.sh"
     RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
 
+    fs_version = args.cvmfs_version
+    fs_tag = args.FairShip_tag or args.cvmfs_version
     print(f"INFO: Running at the site {args.site}")
+    print(f"INFO: Running with FairShip CVMFS version {fs_version} and tag {fs_tag}")
     print(f"INFO: Environment set up for FairShip located at {FS_INSTALL}")
 
 

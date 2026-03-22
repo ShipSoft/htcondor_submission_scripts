@@ -27,6 +27,9 @@ def check(j):
         return True
     file_list = []
     j_arg_dict = args_list_to_dict(sj.application.args)
+    if 'FairShip_tag' not in j_arg_dict.keys():
+        j_arg_dict['FairShip_tag'] = j_arg_dict['cvmfs_version']
+
     for _sj in j.subjobs:
         if not _sj.status in ['completed', 'completing']:
             print(f"WARNING: Subjobs {_sj.id} did not complete")
@@ -58,7 +61,7 @@ def check(j):
                 "job_args" : str([_a for _a in j.application.args]),
                 "creator": os.environ.get("USER"),
                 "ganga_id": str(j.id),
-                "FairShip_tag": "26.03",  # mainly useful if using local version of FairShip
+                "FairShip_tag": j_arg_dict['FairShip_tag'],  # mainly useful if using local version of FairShip
                 "cvmfs_version": j_arg_dict['cvmfs_version'],
                 "comment": j.comment,
                 "data_type": "simulation",

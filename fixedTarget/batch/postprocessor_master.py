@@ -31,7 +31,7 @@ def check(j):
         if not _sj.status in ['completed', 'completing']:
             print(f"WARNING: Subjobs {_sj.id} did not complete")
             continue
-        sj_arg_dict = args_list_to_dict(sj.application.args)
+        sj_arg_dict = args_list_to_dict(_sj.application.args)
         for _f in _sj.outputfiles:
             if isinstance(_f, MassStorageFile):
                 _loc = _f.locations[0]
@@ -66,8 +66,8 @@ def check(j):
                 "run_nos" : str([(_sj.id, _sj.application.args[-1]) for _sj in j.subjobs if _sj.status=='completed']),
                 "title" : j.name,
                }
-#    print(f"INFO: File list - {file_list}")
-#    print(f"INFO: metadata - {metadata}")
+    print(f"INFO: File list - {file_list}")
+    print(f"INFO: metadata - {metadata}")
 
     if len(file_list)>0:
         try:
@@ -75,7 +75,7 @@ def check(j):
                 rse_name = "SHIP_TIER_0_DISK",
                 files = file_list,
                 metadata = metadata,
-    #            dry_run = True
+                dry_run = True
             )
         except Exception as e:
             print(f"ERROR: Not able to register file {file_list} with rucio: {e}")

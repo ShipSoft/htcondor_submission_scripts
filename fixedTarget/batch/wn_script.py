@@ -11,8 +11,19 @@ def main():
     # Main configurable inputs
     parser.add_argument(
         "--fs-install",
-        default="/cvmfs/ship.cern.ch/26.03/",
         help="Base FairShip installation path"
+    )
+
+    parser.add_argument(
+        "--cvmfs_version",
+        default='26.03',
+        help="Which CVMFS version of FairShip to use (default: 26.03)"
+    )
+
+    parser.add_argument(
+        "--site",
+        default="CERN",
+        help="Which site are we running - for setting site-specific options"
     )
 
     parser.add_argument(
@@ -27,28 +38,32 @@ def main():
 
     parser.add_argument(
         "--runfile",
-        help="Path to run_fixedTarget.py (default derived from fs-install)"
+        help="Which python file to run (taken from the install dir location)",
+        default = "run_fixedTarget.py"
     )
 
     # Everything after this is passed through to the FairShip script
     parser.add_argument(
         "script_args",
         nargs=argparse.REMAINDER,
-        help="Arguments passed to run_fixedTarget.py"
+        help="Arguments passed to runfile"
     )
 
     args = parser.parse_args()
 
     # Derive defaults if not provided
-    FS_INSTALL = args.fs_install.rstrip("/")
+    FS_INSTALL = args.fs_install or '/cvmfs/ship.cern.ch/' + args.cvmfs_version
     WORK_DIR = args.work_dir or f"{FS_INSTALL}/sw/"
     INIT_SCRIPT = args.init_script or f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/etc/profile.d/init.sh"
-    RUN_SCRIPT = args.run_script or f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
+    RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
 
+    print(f"INFO: Running at the site {args.site}")
     print(f"INFO: Environment set up for FairShip located at {FS_INSTALL}")
 
+
     # Safely quote passthrough args
-    passthrough = " ".join(shlex.quote(a) for a in args.script_args)
+    script_args = args.script_args[1:] if args.script_args[:1] == ["--"] else args.script_args
+    passthrough = " ".join(shlex.quote(a) for a in script_args)
 
     print(f"INFO: Executing: python {RUN_SCRIPT} {passthrough}")
 

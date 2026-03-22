@@ -3,7 +3,6 @@ import os
 import random
 
 SITE = 'CERN'  # or GENT or GRIDPP
-os.environ["SITE"] = SITE
 # Set this path to wherever you want the output to go
 config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
 config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root://eospublic.cern.ch//eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
@@ -31,7 +30,7 @@ startRun = random.randint(run_min, run_max - nJ * nSJ)
 
 for J in range(nJ):
     j = Job(name = f'run fixed target production number {J} - {nSJ * evtsPerJob} events')
-    j.application = Executable(exe = File('bashScript.sh'), args = ['-o', '"./"', '-n', evtsPerJob, '-e', str(ecut)])
+    j.application = Executable(exe = File('wn_script.py'), args = ['--runfile', 'run_fixedTarget.py', '--cvmfs_version', '26.03', '--site', SITE, '-o', '"./"', '-n', evtsPerJob, '-e', str(ecut)])
 
     # IMPORTANT: Only put the run seed in the splitter arguments
     j.splitter = ArgSplitter(args = [['-r', startRun + J * nSJ + _i] for _i in range(nSJ)], append = True)

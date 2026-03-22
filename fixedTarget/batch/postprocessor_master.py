@@ -26,7 +26,7 @@ def check(j):
     if j.master:
         return True
     file_list = []
-    j_arg_dict = args_list_to_dict(sj.application.args)
+    j_arg_dict = args_list_to_dict(j.application.args)
     if 'FairShip_tag' not in j_arg_dict.keys():
         j_arg_dict['FairShip_tag'] = j_arg_dict['cvmfs_version']
 

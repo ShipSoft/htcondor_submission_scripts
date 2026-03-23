@@ -45,9 +45,8 @@ for J in range(nJ):
 
     # Add in the postprocessor to do the file registration
     # cc = CustomChecker(module = 'postprocessor.py')
-    cc = CustomChecker(module = 'postprocessor_master.py')
-    fc = FileChecker(files = ['stdout'], searchStrings = ['Macro finished successfully.'], failIfFound = False)
-#    fc = FileChecker(files = ['stdout'], searchStrings = ['fool'], failIfFound = False)
+    cc = CustomChecker(module = 'postprocessor_master.py', checkSubjobs=False)
+    fc = FileChecker(files = ['stdout'], searchStrings = ['Macro finished successfully.'], failIfFound = False, checkMaster=False)
     j.postprocessors.append(fc)
     j.postprocessors.append(cc)
     j.comment = f'{evtsPerJob} events in each of {nSJ} subjobs'

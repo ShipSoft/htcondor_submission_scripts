@@ -8,7 +8,7 @@ def args_list_to_dict(args_list):
     while i < len(args_list):
         key = args_list[i].lstrip("-")
         # Check if next item exists and is not another flag
-        if i + 1 < len(args_list) and not args_list[i + 1].startswith("-"):
+        if i + 1 < len(args_list) and isinstance(args_list[i + 1], str) and not args_list[i + 1].startswith("-"):
             result[key] = args_list[i + 1]
             i += 2
         else:

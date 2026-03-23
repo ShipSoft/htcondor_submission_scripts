@@ -6,7 +6,7 @@ def args_list_to_dict(args_list):
     result = {}
     i = 0
     while i < len(args_list):
-        key = args_list[i].lstrip("-")
+        key = str(args_list[i]).lstrip("-")
         # Check if next item exists and is not another flag
         if i + 1 < len(args_list) and isinstance(args_list[i + 1], str) and not args_list[i + 1].startswith("-"):
             result[key] = args_list[i + 1]
@@ -69,8 +69,8 @@ def check(j):
                 "run_nos" : str([(_sj.id, _sj.application.args[-1]) for _sj in j.subjobs if _sj.status=='completed']),
                 "title" : j.name,
                }
-    print(f"INFO: File list - {file_list}")
-    print(f"INFO: metadata - {metadata}")
+#    print(f"INFO: File list - {file_list}")
+#    print(f"INFO: metadata - {metadata}")
 
     if len(file_list)>0:
         try:
@@ -78,7 +78,7 @@ def check(j):
                 rse_name = "SHIP_TIER_0_DISK",
                 files = file_list,
                 metadata = metadata,
-                dry_run = True
+#                dry_run = True
             )
         except Exception as e:
             print(f"ERROR: Not able to register file {file_list} with rucio: {e}")

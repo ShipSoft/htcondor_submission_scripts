@@ -47,6 +47,14 @@ def main():
         default = "run_fixedTarget.py"
     )
 
+    parser.add_argument(
+        "--useLocalFile",
+        help="Use a file on the WN, rather than defaulting to FairShip/macro",
+        default=False,
+        action="store_true",
+        type=bool
+    )
+
     # Everything after this is passed through to the FairShip script
     parser.add_argument(
         "script_args",
@@ -60,8 +68,9 @@ def main():
     FS_INSTALL = args.fs_install or '/cvmfs/ship.cern.ch/' + args.cvmfs_version
     WORK_DIR = args.work_dir or f"{FS_INSTALL}/sw/"
     INIT_SCRIPT = args.init_script or f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/etc/profile.d/init.sh"
-#    RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
-    RUN_SCRIPT=args.runfile
+    RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
+    if args.useLocalFile:
+        RUN_SCRIPT=args.runfile
 
     fs_version = args.cvmfs_version
     fs_tag = args.FairShip_tag or args.cvmfs_version
@@ -80,7 +89,6 @@ def main():
     command = f"""
     export WORK_DIR="{WORK_DIR}"
     source "{INIT_SCRIPT}"
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)
     
     python "{RUN_SCRIPT}" {passthrough}
     """

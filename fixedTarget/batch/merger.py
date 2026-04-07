@@ -53,7 +53,6 @@ args, _ = parser.parse_known_args()
 
 
 if args.prodSite == "GRIDPP":
-    os.environ["X509_USER_PROXY"]="/home/hep/mesmith/private/my_proxy.pem"
     os.environ["X509_VOMSES"]="/cvmfs/grid.cern.ch/etc/grid-security/vomses"
     os.environ["X509_VOMS_DIR"]="/cvmfs/grid.cern.ch/etc/grid-security/vomsdir"
     os.environ["X509_CERT_DIR"]="/cvmfs/grid.cern.ch/etc/grid-security/certificates"

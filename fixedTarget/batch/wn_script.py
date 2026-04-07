@@ -70,7 +70,6 @@ def main():
     RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
     if args.useLocalFile:
         RUN_SCRIPT=args.runfile
-
     fs_version = args.cvmfs_version
     fs_tag = args.FairShip_tag or args.cvmfs_version
     print(f"INFO: Running at the site {args.site}")
@@ -88,7 +87,6 @@ def main():
     command = f"""
     export WORK_DIR="{WORK_DIR}"
     source "{INIT_SCRIPT}"
-    
     python "{RUN_SCRIPT}" {passthrough}
     """
 

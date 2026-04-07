@@ -2,10 +2,10 @@ import time
 import os
 import random
 
-SITE = 'GRIDPP'  # or GENT or GRIDPP
+SITE = 'CERN'  # or GENT or GRIDPP
 # Set this path to wherever you want the output to go
-#config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
-#config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root://eospublic.cern.ch//eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
+config['Output']['MassStorageFile']['uploadOptions']['path'] = '/eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
+config['Output']['MassStorageFile']['uploadOptions']['defaultProtocol'] = 'root://eospublic.cern.ch//eos/experiment/ship/simulation/bkg/Mbias2026/CERN'
 # Now set up the random seed, how many events per subjobs and how many events total
 user = os.environ.get("USER")
 random.seed(user + str(time.time()))
@@ -28,7 +28,6 @@ totalEvts = evtsPerJob * nSJ
 
 startRun = random.randint(run_min, run_max - nJ * nSJ)
 
-#docker pull registry.cern.ch/ship/gha-runner@sha256:2727d9b945b8b41554e3a9f8b03cb028f84b36464994470a4dfb9aec599c5689
 for J in range(nJ):
     j = Job(name = f'run fixed target production number {J} - {nSJ * evtsPerJob} events')
     j.virtualization = Apptainer(image="/cvmfs/unpacked.cern.ch/registry.cern.ch/ship/gha-runner:latest/")

@@ -49,7 +49,7 @@ parser.add_argument("--prodSite",
                     help="Which site was this run at"
                     )
 
-args = parser.parse_args()
+args, _ = parser.parse_known_args()
 
 
 if args.prodSite == "GRIDPP":

@@ -52,7 +52,6 @@ def main():
         help="Use a file on the WN, rather than defaulting to FairShip/macro",
         default=False,
         action="store_true",
-        type=bool
     )
 
     # Everything after this is passed through to the FairShip script
@@ -69,7 +68,7 @@ def main():
     WORK_DIR = args.work_dir or f"{FS_INSTALL}/sw/"
     INIT_SCRIPT = args.init_script or f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/etc/profile.d/init.sh"
     RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
-    if args.useLocalFile:
+    if args.useLocalFile or True:
         RUN_SCRIPT=args.runfile
 
     fs_version = args.cvmfs_version

@@ -65,7 +65,7 @@ if not len(files_to_merge)>0:
 print("INFO: Merging %s files from job %s" % (len(files_to_merge), args.gangaJob))
 
 total_pot = len(files_to_merge) * args.genEvents
-outName = f"pythia8_Geant4_eCut_{args.eCut}_PoT_{total_pot}_{args.site}_j{args.gangaJob}.root"
+outName = f"pythia8_Geant4_eCut_{args.eCut}_PoT_{total_pot}_{args.prodSite}_j{args.gangaJob}.root"
 
 mergeFiles(files_to_merge, outName)
 

@@ -47,6 +47,13 @@ def main():
         default = "run_fixedTarget.py"
     )
 
+    parser.add_argument(
+        "--useLocalFile",
+        help="Use a file on the WN, rather than defaulting to FairShip/macro",
+        default=False,
+        action="store_true",
+    )
+
     # Everything after this is passed through to the FairShip script
     parser.add_argument(
         "script_args",
@@ -61,7 +68,8 @@ def main():
     WORK_DIR = args.work_dir or f"{FS_INSTALL}/sw/"
     INIT_SCRIPT = args.init_script or f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/etc/profile.d/init.sh"
     RUN_SCRIPT = f"{FS_INSTALL}/sw/slc9_x86-64/FairShip/latest/macro/{args.runfile}"
-
+    if args.useLocalFile:
+        RUN_SCRIPT=args.runfile
     fs_version = args.cvmfs_version
     fs_tag = args.FairShip_tag or args.cvmfs_version
     print(f"INFO: Running at the site {args.site}")

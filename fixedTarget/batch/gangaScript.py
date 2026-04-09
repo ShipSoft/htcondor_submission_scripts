@@ -32,7 +32,7 @@ for J in range(nJ):
     j.application = Executable(exe = File('wn_script.py'), args = ['--runfile', 'run_fixedTarget.py', '--cvmfs_version', '26.03', '--site', SITE, '--', '-o', '"./"', '-n', evtsPerJob, '-e', str(ecut)])
 
     # IMPORTANT: Only put the run seed in the splitter arguments
-    j.splitter = ArgSplitter(args = [['-r', startRun + J * nSJ + _i] for _i in range(nSJ)], append = True)
+    j.splitter = ArgSplitter(args = [['-r', startRun + J * nSJ + _i, '--seed', startRun + J * nSJ + _i] for _i in range(nSJ)], append = True)
     j.outputfiles = [MassStorageFile('pythia8_evtgen_Geant4_*.root')]
     j.backend = Condor()
     j.backend.cdf_options['+MaxRuntime'] = '86000'
